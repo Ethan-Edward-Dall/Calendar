@@ -84,6 +84,9 @@ class GUI(tkinter.Frame):
     def genButtons(self, frame, date):
         MONTHLENGTH_DICT = {1:31, 2:28, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
 
+        if(calendar.isleap):
+            MONTHLENGTH_DICT[2] = 29
+
         # Day-of-the-week Labels
         self.mondayLabel = Label(frame, text="Mon")
         self.mondayLabel.grid(row=0, column=1, pady=5)
@@ -106,7 +109,11 @@ class GUI(tkinter.Frame):
         dayNum = 1
 
         # First Week
-        add = MONTHLENGTH_DICT[int(date.month)-1]
+        add = 1
+        if(int(date.month) == 1):
+            add = MONTHLENGTH_DICT[12]
+        else:
+            add = MONTHLENGTH_DICT[int(date.month)-1]
         for row in range(1):
             for col in range(7):
                 if(col >= weekDay):
